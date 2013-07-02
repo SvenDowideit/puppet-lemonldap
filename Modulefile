@@ -12,3 +12,7 @@ project_page 'UNKNOWN'
 
 # /if/ rpm based..
 dependency 'stahnma/epel'
+
+dependency "spiette/selinux"
+dependency "arusso/iptables"
+dependency "camptocamp/augeas"
