@@ -2,13 +2,15 @@ lemonldap
 
 This is the lemonldap module.
 
+   class { 'lemonldap': domain => 'fosiki.com' }
+
 License
 -------
-
+Apache v2.0 
 
 Contact
 -------
-
+SvenDowideit@home.org.au
 
 Support
 -------
