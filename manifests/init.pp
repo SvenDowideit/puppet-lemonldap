@@ -19,6 +19,9 @@
 # $reloadhost = 'reload'
 #   the hostname used to reload the configuration
 #
+# $ipaddress = $::ipaddress
+#   the ipaddress to set for the auth/manager etc server
+#
 # === Variables
 #
 # Here you should define a list of variables that this module would require.
@@ -48,6 +51,9 @@ class lemonldap (   $domain='UNSET',
                     $authhost='auth',
                     $managerhost='manager',
                     $reloadhost='reload',
+                    $test1host='test1',
+                    $test2host='test2',
+                    $ipaddress=$::ipaddress,
 ){
     if ($domain == 'UNSET') {
         fail('please set the cookie $domain')
@@ -66,7 +72,30 @@ class lemonldap (   $domain='UNSET',
   }
   
   if ($package != 'UNSUPPORTED') {
+    #install lemonldap
     class { "lemonldap::${package}": }
+    
+    #add the built in vhostnames to the hosts file
+    host { "${authhost}.${domain}":
+        ip => $ipaddress,
+        host_aliases => [ "${authhost}"]
+    }
+    host { "${managerhost}.${domain}":
+        ip => $ipaddress,
+        host_aliases => [ "${managerhost}"]
+    }
+    host { "${reloadhost}.${domain}":
+        ip => $ipaddress,
+        host_aliases => [ "${reloadhost}"]
+    }
+    host { "${test1host}.${domain}":
+        ip => $ipaddress,
+        host_aliases => [ "${test1host}"]
+    }
+    host { "${test2host}.${domain}":
+        ip => $ipaddress,
+        host_aliases => [ "${test2host}"]
+    }
   }
 }
 
